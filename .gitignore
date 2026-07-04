@@ -40,3 +40,6 @@ build/
 # H2 Database physical files
 stockpilot_db.mv.db
 stockpilot_db.trace.db
+
+.idea/
+*.iml

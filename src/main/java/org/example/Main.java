@@ -46,7 +46,8 @@ public class Main {
             System.out.println("\n--- MAIN MENU ---");
             System.out.println("1. Add New Product");
             System.out.println("2. View All Products & Low Stock Alert");
-            System.out.println("3. Place a New Order (Test DB Transaction)");
+            System.out.println("3. Place a New Order");
+            System.out.println("4. Import products from CSV");
             System.out.println("0. Exit System");
             System.out.print("Please select an option (0-3): ");
 
@@ -132,6 +133,21 @@ public class Main {
 
                     } catch (Exception e) {
                         System.err.println("Error placing order: " + e.getMessage());
+                    }
+                    break;
+
+                case "4":
+                    try {
+                        System.out.print("Enter CSV file path (e.g., products.csv): ");
+                        String path = scanner.nextLine();
+                        List<Product> importedProducts = org.example.io.CsvImporter.importProducts(path);
+
+                        for (Product p : importedProducts) {
+                            productService.addProduct(p);
+                        }
+                        System.out.println("Imported " + importedProducts.size() + " products successfully!");
+                    } catch (Exception e) {
+                        System.err.println("Error importing CSV: " + e.getMessage());
                     }
                     break;
 
