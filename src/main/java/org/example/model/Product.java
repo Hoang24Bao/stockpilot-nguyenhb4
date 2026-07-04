@@ -21,8 +21,8 @@ public class Product {
         setSku(sku);
         this.name = name;
         this.category = category;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
+        setPrice(price);
+        setStockQuantity(stockQuantity);
     }
 
     public Integer getId() { return id; }
@@ -44,10 +44,23 @@ public class Product {
     public void setCategory(String category) { this.category = category; }
 
     public BigDecimal getPrice() { return price; }
-    public void setPrice(BigDecimal price) { this.price = price; }
+
+    public void setPrice(BigDecimal price) {
+        // Kiểm tra giá không được null và không được nhỏ hơn 0
+        if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidInputException("Price cannot be negative or null!");
+        }
+        this.price = price;
+    }
 
     public int getStockQuantity() { return stockQuantity; }
-    public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
+    public void setStockQuantity(int stockQuantity) {
+        // Kiểm tra số lượng tồn kho không được âm
+        if (stockQuantity < 0) {
+            throw new InvalidInputException("Stock quantity cannot be negative!");
+        }
+        this.stockQuantity = stockQuantity;
+    }
 
     @Override
     public String toString() {

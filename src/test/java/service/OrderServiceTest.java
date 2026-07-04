@@ -4,6 +4,7 @@ import org.example.exception.InvalidInputException;
 import org.example.model.Customer;
 import org.example.model.Order;
 import org.example.model.PercentageDiscount;
+import org.example.model.Product;
 import org.example.repository.OrderRepository;
 import org.example.service.OrderService;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,10 @@ class OrderServiceTest {
 
     @Test
     void testAddProductWithInvalidPriceShouldThrowException() {
-        // Test xem giá âm có bị ném lỗi không
-        assertThrows(RuntimeException.class, () -> {
-        });
+        assertThrows(InvalidInputException.class, () -> {
+            // Cố tình tạo sản phẩm có giá trị là số âm (-10)
+            new Product(1, "SKU-1234", "Laptop", "Electronics", new BigDecimal("-10"), 5);
+        }, "Should throw InvalidInputException when price is negative");
     }
 
     @Test
@@ -61,7 +63,7 @@ class OrderServiceTest {
     @Test
     void testInvalidEmailFormat() {
         // Kiểm tra tính năng xác thực Email (Validation) qua Regex.
-        Customer customer = new Customer(1, "Nguyen", "email-sai", "0123456789");
+        Customer customer = new Customer(1, "Nguyen", "valid@email.com", "0123456789");
         assertThrows(InvalidInputException.class, () -> customer.setEmail("invalid-email"));
     }
 
