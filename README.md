@@ -32,3 +32,7 @@ The system strictly adheres to a clean Layered Architecture:
 2. **Build the executable JAR file:**
    ```bash
    mvn clean package
+
+
+# StockPilot - Warehouse & Order Management System
+**🔗 Source Code & Git History:** https://github.com/Hoang24Bao/stockpilot-nguyenhb4.git
